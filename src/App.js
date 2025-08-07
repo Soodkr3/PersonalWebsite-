@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+// App.js
+import React from "react";
+import Galaxy from "./Galaxy";
+import Dashboard from "./Dashboard";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          position: "fixed",
+          inset: 0,
+          zIndex: 0,
+        }}
+      >
+        <Galaxy
+          glowIntensity={0.25}
+          density={0.4}
+          saturation={0}
+          hueShift={0}
+          speed={0.7}
+          mouseRepulsion={true}
+          mouseInteraction={true}
+          transparent={false}
+        />
+      </div>
+      <div style={{ position: "relative", zIndex: 2 }}>
+        <Dashboard />
+      </div>
+    </>
   );
 }
 
