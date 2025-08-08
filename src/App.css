@@ -1,6 +1,124 @@
-/*app.css*/
-body {
+html, body, #root {
+  min-height: 100vh;
+  min-width: 100vw;
+  background: transparent !important;
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f4f6f8;
+  padding: 0;
+  overflow: auto;
+}
+.galaxy-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.main-hero-text {
+  font-size: 2.7rem;
+  font-weight: 800;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.05em;
+  line-height: 1.22;
+  margin: 0;
+  text-shadow: 0 2px 20px rgba(0,0,0,0.22);
+  user-select: none;
+  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+  max-width: 95vw;
+  white-space: pre-line;
+}
+.about-blur-text {
+  font-size: 1.35rem;
+  font-weight: 500;
+  color: #fff;
+  text-align: center;
+  letter-spacing: 0.03em;
+  line-height: 1.7;
+  margin: 0.7rem 0;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.11);
+  user-select: none;
+  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+  max-width: 90vw;
+  white-space: pre-line;
+}
+.top-left-name {
+  position: fixed;
+  top: 2.8rem;
+  left: 3.3rem;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  align-items: flex-start;
+}
+.top-left-hero {
+  font-size: 1.63rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.08em;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.17);
+  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+  margin: 0;
+  user-select: none;
+}
+.social-links-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2.5rem;
+  margin-top: 2.2rem;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+.social-link {
+  pointer-events: auto;
+  text-decoration: none;
+  border-radius: 1.4rem;
+  transition: background 0.14s, box-shadow 0.14s, transform 0.13s;
+  padding: 0.22rem 1.33rem;
+  background: rgba(20,24,40,0.40);
+  box-shadow: 0 2px 16px 0 rgba(0,0,0,0.09);
+  outline: none;
+  display: inline-block;
+  user-select: none;
+}
+.social-link:focus,
+.social-link:hover {
+  background: rgba(44,52,80,0.85);
+  transform: scale(1.06);
+  box-shadow: 0 4px 24px 0 rgba(44,200,255,0.13);
+}
+.social-blur-text {
+  font-size: 1.12rem;
+  font-weight: 600;
+  color: #b3e5fc;
+  letter-spacing: 0.05em;
+  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+  text-align: center;
+  margin: 0;
+  user-select: none;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.13);
+}
+@media (max-width: 700px) {
+  .main-hero-text {
+    font-size: 1.4rem;
+    padding: 1.1rem;
+  }
+  .about-blur-text {
+    font-size: 1rem;
+    padding: 0.6rem;
+  }
+  .top-left-hero {
+    font-size: 1rem;
+    padding: 0.2rem;
+  }
+  .top-left-name {
+    top: 1.1rem;
+    left: 1.1rem;
+  }
+  .social-links-container {
+    gap: 1.2rem;
+    margin-top: 1.2rem;
+  }
+  .social-blur-text {
+    font-size: 0.89rem;
+    padding: 0.13rem 0.5rem;
+  }
 }
