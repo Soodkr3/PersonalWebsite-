@@ -12,7 +12,7 @@ const aboutLines = [
 const socials = [
   {
     label: "LinkedIn",
-    url: "https://www.linkedin.com/in/krish-sood-3795282a5/",
+    url: "https://www.linkedin.com/in/krish-sood/",
   },
   {
     label: "GitHub",
@@ -20,16 +20,32 @@ const socials = [
   },
 ];
 
-const handleAnimationComplete = () => {
-  // optional
-};
+const experiences = [
+  {
+    title: "AI Developer Intern — XYZ Startup",
+    period: "June 2024 – Aug 2024",
+    desc: "Built and deployed computer vision models for real-time object detection in Python (PyTorch, OpenCV).",
+  },
+  {
+    title: "Full Stack Developer — College Society",
+    period: "Sept 2023 – Present",
+    desc: "Developed and maintained a React/Node.js web app for event management used by 200+ students.",
+  },
+  {
+    title: "Research Assistant — TCD",
+    period: "May 2023 – Aug 2023",
+    desc: "Assisted in NLP research, working on transformer models and dataset preprocessing.",
+  },
+];
+
+const handleAnimationComplete = () => {};
 
 function App() {
   return (
     <div
       style={{
         width: "100vw",
-        minHeight: "250vh", // enough to allow scroll for all sections
+        minHeight: "350vh", // enough to allow scroll for all sections
         position: "relative",
         overflow: "visible",
       }}
@@ -60,7 +76,7 @@ function App() {
       {/* Fixed top left name */}
       <div className="top-left-name">
         <BlurText
-          text="Krish Sood"
+          text="krish sood"
           delay={80}
           animateBy="words"
           direction="top"
@@ -124,10 +140,7 @@ function App() {
               key={social.label}
               tabIndex={0}
               style={{ pointerEvents: "auto" }}
-              onClick={e => {
-                      // Remove focus so the button doesn't keep focus styling after click
-              e.currentTarget.blur();
-              }}
+              onClick={e => { e.currentTarget.blur(); }}
             >
               <BlurText
                 text={social.label}
@@ -139,6 +152,54 @@ function App() {
                 threshold={0.1}
               />
             </a>
+          ))}
+        </div>
+      </section>
+
+      {/* Experience Heading */}
+      <section
+        style={{
+          width: "100vw",
+          minHeight: "30vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          pointerEvents: "none",
+          marginTop: "15vh",
+        }}
+      >
+        <BlurText
+          text="Experience"
+          delay={80}
+          animateBy="words"
+          direction="top"
+          className="experience-heading"
+          rootMargin="-20px"
+          threshold={0.15}
+        />
+      </section>
+
+      {/* Experience Card */}
+      <section
+        style={{
+          width: "100vw",
+          minHeight: "45vh",
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "flex-start",
+          pointerEvents: "none",
+          marginTop: "2vh",
+        }}
+      >
+        <div className="experience-card" style={{ pointerEvents: "auto" }}>
+          {experiences.map((exp, idx) => (
+            <div key={idx} className="experience-entry">
+              <div className="exp-title">{exp.title}</div>
+              <div className="exp-period">{exp.period}</div>
+              <div className="exp-desc">{exp.desc}</div>
+            </div>
           ))}
         </div>
       </section>
