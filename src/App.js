@@ -3,6 +3,7 @@ import Galaxy from "./Galaxy";
 import BlurText from "./BlurText";
 import ProfileCard from "./ProfileCard";
 import "./App.css";
+import MagicBento from "./MagicBento";
 
 const aboutLines = [
   "3rd Year CS student at Trinity College Dublin",
@@ -175,7 +176,7 @@ function App() {
         }}
       >
         <BlurText
-          text="Experience"
+          text="Info"
           delay={80}
           animateBy="words"
           direction="top"
@@ -185,7 +186,7 @@ function App() {
         />
       </section>
 
-      {/* Experience Card */}
+      {/* Experience Bento Glass Grid */}
       <section
         style={{
           width: "100vw",
@@ -194,19 +195,22 @@ function App() {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "flex-start",
-          pointerEvents: "none",
+          pointerEvents: "auto",
           marginTop: "2vh",
         }}
       >
-        <div className="experience-card" style={{ pointerEvents: "auto" }}>
-          {experiences.map((exp, idx) => (
-            <div key={idx} className="experience-entry">
-              <div className="exp-title">{exp.title}</div>
-              <div className="exp-period">{exp.period}</div>
-              <div className="exp-desc">{exp.desc}</div>
-            </div>
-          ))}
-        </div>
+        <MagicBento
+          textAutoHide={true}
+          enableStars={true}
+          enableSpotlight={true}
+          enableBorderGlow={true}
+          enableTilt={false}
+          enableMagnetism={true}
+          clickEffect={true}
+          spotlightRadius={300}
+          particleCount={12}
+          glowColor="132, 0, 255"
+        />
       </section>
 
       {/* Extra space for scrolling away */}
