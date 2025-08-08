@@ -1,6 +1,7 @@
 import React from "react";
 import Galaxy from "./Galaxy";
 import BlurText from "./BlurText";
+import ProfileCard from "./ProfileCard";
 import "./App.css";
 
 const aboutLines = [
@@ -45,7 +46,7 @@ function App() {
     <div
       style={{
         width: "100vw",
-        minHeight: "350vh", // enough to allow scroll for all sections
+        minHeight: "350vh",
         position: "relative",
         overflow: "visible",
       }}
@@ -105,54 +106,58 @@ function App() {
         />
       </section>
 
-      {/* About Section */}
-      <section
-        style={{
-          width: "100vw",
-          minHeight: "70vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          pointerEvents: "none",
-          marginTop: "15vh",
-        }}
-      >
-        {aboutLines.map((line, idx) => (
-          <BlurText
-            key={idx}
-            text={line}
-            delay={120}
-            animateBy="words"
-            direction="top"
-            className="about-blur-text"
-            rootMargin="-30px"
-            threshold={0.1}
+      {/* Profile + About Section Side-by-Side */}
+      <section className="profile-about-section">
+        <div className="profile-card-container">
+          <ProfileCard
+            avatarUrl="https://ik.imagekit.io/krishsood/photoNoBG_2.png?updatedAt=1754675208255"
+            name="Krish Sood"
+            title="CS Student • AI & Full Stack Dev"
+            handle="Soodkr3"
+            status="Online"
+            miniAvatarUrl="https://ik.imagekit.io/krishsood/photoNoBG_2.png?updatedAt=1754675208255"
+            contactText="Contact"
+            showUserInfo={true}
+            onContactClick={() => console.log('Contact clicked')}
           />
-        ))}
-        <div className="social-links-container" style={{ pointerEvents: "auto" }}>
-          {socials.map((social, i) => (
-            <a
-              href={social.url}
-              className="social-link"
-              target="_blank"
-              rel="noopener noreferrer"
-              key={social.label}
-              tabIndex={0}
-              style={{ pointerEvents: "auto" }}
-              onClick={e => { e.currentTarget.blur(); }}
-            >
-              <BlurText
-                text={social.label}
-                delay={80}
-                animateBy="words"
-                direction="top"
-                className="social-blur-text"
-                rootMargin="-30px"
-                threshold={0.1}
-              />
-            </a>
+        </div>
+        <div className="about-description-container">
+          {aboutLines.map((line, idx) => (
+            <BlurText
+              key={idx}
+              text={line}
+              delay={120}
+              animateBy="words"
+              direction="top"
+              className="about-blur-text"
+              rootMargin="-30px"
+              threshold={0.1}
+            />
           ))}
+          <div className="social-links-container" style={{ pointerEvents: "auto" }}>
+            {socials.map((social, i) => (
+              <a
+                href={social.url}
+                className="social-link"
+                target="_blank"
+                rel="noopener noreferrer"
+                key={social.label}
+                tabIndex={0}
+                style={{ pointerEvents: "auto" }}
+                onClick={e => { e.currentTarget.blur(); }}
+              >
+                <BlurText
+                  text={social.label}
+                  delay={80}
+                  animateBy="words"
+                  direction="top"
+                  className="social-blur-text"
+                  rootMargin="-30px"
+                  threshold={0.1}
+                />
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
