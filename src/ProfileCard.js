@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useCallback, useMemo } from "react";
 import "./ProfileCard.css";
 
+// If you want to change the mobile number, change it here:
+const MOBILE_NUMBER = "+1234567890"; // <-- Replace with your actual number!
+
 const DEFAULT_BEHIND_GRADIENT =
   "radial-gradient(farthest-side circle at var(--pointer-x) var(--pointer-y),hsla(266,100%,90%,var(--card-opacity)) 4%,hsla(266,50%,80%,calc(var(--card-opacity)*0.75)) 10%,hsla(266,25%,70%,calc(var(--card-opacity)*0.5)) 50%,hsla(266,0%,60%,0) 100%),radial-gradient(35% 52% at 55% 20%,#00ffaac4 0%,#073aff00 100%),radial-gradient(100% 100% at 50% 50%,#00c1ffff 1%,#073aff00 76%),conic-gradient(from 124deg at 50% 50%,#c137ffff 0%,#07c6ffff 40%,#07c6ffff 60%,#c137ffff 100%)";
 
@@ -280,8 +283,28 @@ const ProfileCardComponent = ({
     [iconUrl, grainUrl, showBehindGradient, behindGradient, innerGradient]
   );
 
+  // Custom Contact Click: copy mobile number to clipboard, show popup
   const handleContactClick = useCallback(() => {
-    onContactClick?.();
+    // If parent provided a custom handler, call it
+    if (onContactClick) {
+      onContactClick();
+      return;
+    }
+    // Default: copy number and show alert
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(MOBILE_NUMBER).then(() => {
+        alert("Mobile number copied.");
+      });
+    } else {
+      // fallback
+      const tempInput = document.createElement("input");
+      tempInput.value = MOBILE_NUMBER;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
+      alert("Mobile number copied.");
+    }
   }, [onContactClick]);
 
   return (
@@ -326,14 +349,14 @@ const ProfileCardComponent = ({
                   </div>
                 </div>
                 <button
-                  className="pc-contact-btn"
-                  onClick={handleContactClick}
-                  style={{ pointerEvents: "auto" }}
-                  type="button"
-                  aria-label={`Contact ${name || "user"}`}
-                >
-                  {contactText}
-                </button>
+  className="pc-contact-btn cursor-target"
+  onClick={handleContactClick}
+  style={{ pointerEvents: "auto" }}
+  type="button"
+  aria-label={`Contact ${name || "user"}`}
+>
+  {contactText}
+</button>
               </div>
             )}
           </div>

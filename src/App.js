@@ -4,21 +4,27 @@ import BlurText from "./BlurText";
 import ProfileCard from "./ProfileCard";
 import "./App.css";
 import MagicBento from "./MagicBento";
+import TargetCursor from "./TargetCursor";
 
-const aboutLines = [
-  "3rd Year CS student at Trinity College Dublin",
-  "AI and Full stack developer",
-  "Proficient in Python and JavaScript",
-];
+// Set your details here:
+const MOBILE_NUMBER = "+1234567890"; // <-- Replace with your real number!
+const EMAIL_ADDRESS = "youremail@example.com"; // <-- Replace with your real email!
 
 const socials = [
   {
     label: "LinkedIn",
     url: "https://www.linkedin.com/in/krish-sood/",
+    type: "link"
   },
   {
     label: "GitHub",
     url: "https://github.com/Soodkr3",
+    type: "link"
+  },
+  {
+    label: "Email",
+    url: `mailto:${EMAIL_ADDRESS}`,
+    type: "email"
   },
 ];
 
@@ -42,6 +48,23 @@ const experiences = [
 
 const handleAnimationComplete = () => {};
 
+const handleContactClick = () => {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(MOBILE_NUMBER).then(() => {
+      alert("Mobile number copied.");
+    });
+  } else {
+    // fallback
+    const tempInput = document.createElement("input");
+    tempInput.value = MOBILE_NUMBER;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    alert("Mobile number copied.");
+  }
+};
+
 function App() {
   return (
     <div
@@ -52,6 +75,13 @@ function App() {
         overflow: "visible",
       }}
     >
+      {/* Custom animated cursor */}
+      <TargetCursor
+        targetSelector=".cursor-target"
+        spinDuration={2}
+        hideDefaultCursor={true}
+      />
+
       {/* Galaxy background */}
       <div
         style={{
@@ -119,45 +149,82 @@ function App() {
             miniAvatarUrl="https://ik.imagekit.io/krishsood/photoNoBG_2.png?updatedAt=1754675208255"
             contactText="Contact"
             showUserInfo={true}
-            onContactClick={() => console.log('Contact clicked')}
+            onContactClick={handleContactClick}
           />
         </div>
         <div className="about-description-container">
-          {aboutLines.map((line, idx) => (
-            <BlurText
-              key={idx}
-              text={line}
-              delay={120}
-              animateBy="words"
-              direction="top"
-              className="about-blur-text"
-              rootMargin="-30px"
-              threshold={0.1}
-            />
-          ))}
+          {/* Social buttons */}
           <div className="social-links-container" style={{ pointerEvents: "auto" }}>
-            {socials.map((social, i) => (
-              <a
-                href={social.url}
-                className="social-link"
-                target="_blank"
-                rel="noopener noreferrer"
-                key={social.label}
-                tabIndex={0}
-                style={{ pointerEvents: "auto" }}
-                onClick={e => { e.currentTarget.blur(); }}
-              >
-                <BlurText
-                  text={social.label}
-                  delay={80}
-                  animateBy="words"
-                  direction="top"
-                  className="social-blur-text"
-                  rootMargin="-30px"
-                  threshold={0.1}
-                />
-              </a>
-            ))}
+            {socials.map((social) =>
+              social.type === "email" ? (
+                <a
+                  key={social.label}
+                  className="social-link cursor-target"
+                  href={social.url}
+                  style={{
+                    pointerEvents: "auto",
+                    cursor: "pointer",
+                    border: "none",
+                    outline: "none",
+                    background: "rgba(20,24,40,0.40)",
+                    color: "#b3e5fc",
+                    fontWeight: 600,
+                    fontSize: "1.12rem",
+                    borderRadius: "1.4rem",
+                    padding: "0.22rem 1.33rem",
+                    transition: "background 0.14s, box-shadow 0.14s, transform 0.13s",
+                    boxShadow: "0 2px 16px 0 rgba(0,0,0,0.09)",
+                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif"
+                  }}
+                  tabIndex={0}
+                  onMouseUp={e => e.currentTarget.blur()}
+                >
+                  <BlurText
+                    text={social.label}
+                    delay={80}
+                    animateBy="words"
+                    direction="top"
+                    className="social-blur-text"
+                    rootMargin="-30px"
+                    threshold={0.1}
+                  />
+                </a>
+              ) : (
+                <button
+                  key={social.label}
+                  className="social-link cursor-target"
+                  tabIndex={0}
+                  type="button"
+                  onClick={() => window.open(social.url, "_blank", "noopener,noreferrer")}
+                  style={{
+                    pointerEvents: "auto",
+                    cursor: "pointer",
+                    border: "none",
+                    outline: "none",
+                    background: "rgba(20,24,40,0.40)",
+                    color: "#b3e5fc",
+                    fontWeight: 600,
+                    fontSize: "1.12rem",
+                    borderRadius: "1.4rem",
+                    padding: "0.22rem 1.33rem",
+                    transition: "background 0.14s, box-shadow 0.14s, transform 0.13s",
+                    boxShadow: "0 2px 16px 0 rgba(0,0,0,0.09)",
+                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif"
+                  }}
+                  onMouseUp={e => e.currentTarget.blur()}
+                >
+                  <BlurText
+                    text={social.label}
+                    delay={80}
+                    animateBy="words"
+                    direction="top"
+                    className="social-blur-text"
+                    rootMargin="-30px"
+                    threshold={0.1}
+                  />
+                </button>
+              )
+            )}
           </div>
         </div>
       </section>
