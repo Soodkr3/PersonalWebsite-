@@ -164,17 +164,21 @@ function App() {
                   style={{
                     pointerEvents: "auto",
                     cursor: "pointer",
-                    border: "none",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
                     outline: "none",
-                    background: "rgba(20,24,40,0.40)",
-                    color: "#b3e5fc",
+                    background: "linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(51, 65, 85, 0.4) 100%)",
+                    color: "#e2e8f0",
                     fontWeight: 600,
-                    fontSize: "1.12rem",
-                    borderRadius: "1.4rem",
-                    padding: "0.22rem 1.33rem",
-                    transition: "background 0.14s, box-shadow 0.14s, transform 0.13s",
-                    boxShadow: "0 2px 16px 0 rgba(0,0,0,0.09)",
-                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif"
+                    fontSize: "1.1rem",
+                    borderRadius: "1.6rem",
+                    padding: "0.4rem 1.6rem",
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    backdropFilter: "blur(20px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(255, 255, 255, 0.05) inset, 0 1px 0 rgba(255, 255, 255, 0.1) inset",
+                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif",
+                    position: "relative",
+                    overflow: "hidden"
                   }}
                   tabIndex={0}
                   onMouseUp={e => e.currentTarget.blur()}
@@ -199,17 +203,21 @@ function App() {
                   style={{
                     pointerEvents: "auto",
                     cursor: "pointer",
-                    border: "none",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
                     outline: "none",
-                    background: "rgba(20,24,40,0.40)",
-                    color: "#b3e5fc",
+                    background: "linear-gradient(135deg, rgba(30, 41, 59, 0.4) 0%, rgba(51, 65, 85, 0.4) 100%)",
+                    color: "#e2e8f0",
                     fontWeight: 600,
-                    fontSize: "1.12rem",
-                    borderRadius: "1.4rem",
-                    padding: "0.22rem 1.33rem",
-                    transition: "background 0.14s, box-shadow 0.14s, transform 0.13s",
-                    boxShadow: "0 2px 16px 0 rgba(0,0,0,0.09)",
-                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif"
+                    fontSize: "1.1rem",
+                    borderRadius: "1.6rem",
+                    padding: "0.4rem 1.6rem",
+                    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+                    backdropFilter: "blur(20px) saturate(180%)",
+                    WebkitBackdropFilter: "blur(20px) saturate(180%)",
+                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(255, 255, 255, 0.05) inset, 0 1px 0 rgba(255, 255, 255, 0.1) inset",
+                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif",
+                    position: "relative",
+                    overflow: "hidden"
                   }}
                   onMouseUp={e => e.currentTarget.blur()}
                 >
