@@ -1,20 +1,13 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
 
-test('renders hero greeting', () => {
+test('renders hero text', () => {
   render(<App />);
-  const greeting = screen.getByText(/hi, my name is/i);
-  expect(greeting).toBeInTheDocument();
+  const heroText = screen.getByText(/welcome to my universe/i);
+  expect(heroText).toBeInTheDocument();
 });
 
-test('renders navigation links', () => {
+test('renders top-left name', () => {
   render(<App />);
-  expect(screen.getByText(/about/i)).toBeInTheDocument();
-  expect(screen.getByText(/projects/i)).toBeInTheDocument();
-  expect(screen.getByText(/contact/i)).toBeInTheDocument();
-});
-
-test('renders hero name', () => {
-  render(<App />);
-  expect(screen.getByText(/your name/i)).toBeInTheDocument();
+  expect(screen.getByText(/krish/i)).toBeInTheDocument();
 });

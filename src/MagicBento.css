@@ -1,0 +1,246 @@
+:root {
+  --border-color: #392e4e;
+  --background-dark: #060010;
+  --purple-glow: rgba(132, 0, 255, 0.2);
+}
+
+/* ── Grid ───────────────────────────────────────────────────────────────── */
+.card-grid {
+  display: grid;
+  gap: 0.5em;
+  padding: 0.75em;
+  max-width: 54em;
+  width: 100%;
+  font-size: clamp(1rem, 0.9rem + 0.5vw, 1.5rem);
+}
+
+/* ── Base card ──────────────────────────────────────────────────────────── */
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: relative;
+  aspect-ratio: 4 / 3;
+  min-height: 200px;
+  width: 100%;
+  padding: 1.25em;
+  border-radius: 20px;
+  border: 1px solid var(--border-color);
+  background: var(--background-dark);
+  font-weight: 300;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  --glow-x: 50%;
+  --glow-y: 50%;
+  --glow-intensity: 0;
+  --glow-radius: 200px;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* About card — more vertical room for the bio */
+.card.card--about {
+  aspect-ratio: unset;
+  min-height: 260px;
+}
+
+.card.card--about .card__description {
+  -webkit-line-clamp: unset !important;
+  line-clamp: unset !important;
+  font-size: 0.82em;
+  line-height: 1.55;
+  opacity: 0.85;
+}
+
+/* ── Card anatomy ───────────────────────────────────────────────────────── */
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  color: #fff;
+  gap: 0.75em;
+}
+
+.card__content {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  color: #fff;
+  flex: 1;
+}
+
+.card__label {
+  font-size: 0.72em;
+  font-weight: 600;
+  color: rgba(179, 229, 252, 0.7);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  margin-bottom: 0.6em;
+  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+}
+
+.card__title {
+  font-weight: 600;
+  font-size: 0.88em;
+  margin: 0 0 0.35em;
+  color: #e6f1ff;
+  line-height: 1.25;
+}
+
+.card__description {
+  font-size: 0.78em;
+  line-height: 1.35;
+  opacity: 0.75;
+  color: rgba(230, 241, 255, 0.85);
+}
+
+.card__footer {
+  margin-top: auto;
+  padding-top: 1em;
+  display: flex;
+  align-items: flex-end;
+}
+
+.card__external-link {
+  color: rgba(179, 229, 252, 0.8);
+  font-size: 0.75em;
+  text-decoration: none;
+  padding: 0.25em 0.6em;
+  border-radius: 6px;
+  border: 1px solid rgba(132, 0, 255, 0.25);
+  background: rgba(132, 0, 255, 0.08);
+  transition: background 0.15s, border-color 0.15s;
+  font-family: 'Plus Jakarta Sans', 'Inter', Arial, sans-serif;
+}
+
+.card__external-link:hover {
+  background: rgba(132, 0, 255, 0.18);
+  border-color: rgba(132, 0, 255, 0.5);
+}
+
+/* ── Text auto-hide (ellipsis clamp) ────────────────────────────────────── */
+.card--text-autohide .card__title,
+.card--text-autohide .card__description {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card--text-autohide .card__title {
+  -webkit-line-clamp: 2;
+}
+
+.card--text-autohide .card__description {
+  -webkit-line-clamp: 4;
+}
+
+/* ── Border glow ────────────────────────────────────────────────────────── */
+.card--border-glow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  padding: 6px;
+  background: radial-gradient(
+    var(--glow-radius) circle at var(--glow-x) var(--glow-y),
+    rgba(132, 0, 255, calc(var(--glow-intensity) * 0.8)) 0%,
+    rgba(132, 0, 255, calc(var(--glow-intensity) * 0.4)) 30%,
+    transparent 60%
+  );
+  border-radius: inherit;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: subtract;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 1;
+}
+
+.card--border-glow:hover {
+  box-shadow: 0 4px 24px rgba(46, 24, 78, 0.4), 0 0 30px var(--purple-glow);
+}
+
+/* ── Particle system ────────────────────────────────────────────────────── */
+.particle-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.particle::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: rgba(132, 0, 255, 0.2);
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.particle-container:hover {
+  box-shadow: 0 4px 20px rgba(46, 24, 78, 0.2), 0 0 30px var(--purple-glow);
+}
+
+/* ── Global spotlight ───────────────────────────────────────────────────── */
+.global-spotlight {
+  mix-blend-mode: screen;
+  will-change: transform, opacity;
+  z-index: 200 !important;
+  pointer-events: none;
+}
+
+.bento-section {
+  position: relative;
+  user-select: none;
+}
+
+/* ── Responsive grid layout ─────────────────────────────────────────────── */
+
+/* Mobile: single column */
+@media (max-width: 599px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    width: 90%;
+    margin: 0 auto;
+    padding: 0.5em;
+  }
+
+  .card {
+    min-height: 160px;
+    aspect-ratio: unset;
+  }
+}
+
+/* Tablet: 2 columns */
+@media (min-width: 600px) and (max-width: 1023px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop: 4-column asymmetric bento */
+@media (min-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* Card 3 (About) — 2 cols × 2 rows, auto-placed at col 3 */
+  .card:nth-child(3) {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+
+  /* Card 4 — 2 cols × 2 rows, anchored bottom-left */
+  .card:nth-child(4) {
+    grid-column: 1 / span 2;
+    grid-row: 2 / span 2;
+  }
+
+  /* Card 6 — bottom-right corner */
+  .card:nth-child(6) {
+    grid-column: 4;
+    grid-row: 3;
+  }
+}

@@ -1,0 +1,86 @@
+/* ────────────────────────────────────────────────────────
+   TargetCursor
+   All cursor elements are fixed, pointer-events: none so they
+   never interfere with page interactions.
+   transform: translate(-50%, -50%) keeps the origin at centre.
+──────────────────────────────────────────────────────── */
+
+.target-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  will-change: transform, width, height;
+}
+
+.target-cursor__corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-color: rgba(255, 255, 255, 0.9);
+  border-style: solid;
+  border-width: 0;
+}
+
+/* Top-left */
+.tc-tl {
+  top: 0;
+  left: 0;
+  border-top-width: 2px;
+  border-left-width: 2px;
+  border-top-left-radius: 2px;
+}
+
+/* Top-right */
+.tc-tr {
+  top: 0;
+  right: 0;
+  border-top-width: 2px;
+  border-right-width: 2px;
+  border-top-right-radius: 2px;
+}
+
+/* Bottom-left */
+.tc-bl {
+  bottom: 0;
+  left: 0;
+  border-bottom-width: 2px;
+  border-left-width: 2px;
+  border-bottom-left-radius: 2px;
+}
+
+/* Bottom-right */
+.tc-br {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+/* Centre dot */
+.target-cursor__dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+}
+
+/* Hide cursor on touch / mobile */
+@media (hover: none) {
+  .target-cursor,
+  .target-cursor__dot {
+    display: none !important;
+  }
+}

@@ -1,6 +1,6 @@
 {
-  "short_name": "Portfolio",
-  "name": "Your Name | Portfolio",
+  "short_name": "Krish Sood",
+  "name": "Krish Sood | Portfolio",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#0a0e14",
-  "background_color": "#0a0e14"
+  "theme_color": "#060010",
+  "background_color": "#060010"
 }
