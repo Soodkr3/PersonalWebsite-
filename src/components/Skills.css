@@ -1,0 +1,41 @@
+.skills__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 1.5rem;
+}
+
+.skills__card {
+  padding: 2rem;
+}
+
+.skills__category {
+  color: #7ee8fa;
+  font-size: 0.8rem;
+  font-family: "Courier New", monospace;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 1.25rem;
+}
+
+.skills__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.skills__tag {
+  background: rgba(126, 232, 250, 0.07);
+  color: rgba(230, 241, 255, 0.7);
+  border: 1px solid rgba(126, 232, 250, 0.18);
+  border-radius: 4px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.83rem;
+  font-family: "Courier New", monospace;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.skills__tag:hover {
+  background: rgba(126, 232, 250, 0.15);
+  border-color: rgba(126, 232, 250, 0.45);
+  color: #e6f1ff;
+}

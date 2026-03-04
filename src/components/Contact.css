@@ -1,0 +1,52 @@
+.contact {
+  text-align: center;
+}
+
+.contact__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contact__overline {
+  color: #7ee8fa;
+  font-family: "Courier New", monospace;
+  font-size: 0.9rem;
+  letter-spacing: 2px;
+  margin: 0 0 1rem;
+}
+
+.contact__heading {
+  color: #e6f1ff;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin: 0 0 1.5rem;
+}
+
+.contact__body {
+  color: rgba(230, 241, 255, 0.6);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 0 2.5rem;
+}
+
+.contact__socials {
+  list-style: none;
+  padding: 0;
+  margin: 3rem 0 0;
+  display: flex;
+  gap: 1.75rem;
+}
+
+.contact__socials a {
+  color: rgba(230, 241, 255, 0.45);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.contact__socials a:hover {
+  color: #7ee8fa;
+  transform: translateY(-3px);
+}

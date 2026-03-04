@@ -1,0 +1,23 @@
+.footer {
+  background: rgba(10, 14, 20, 0.95);
+  text-align: center;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.footer p {
+  color: rgba(230, 241, 255, 0.3);
+  font-size: 0.8rem;
+  font-family: "Courier New", monospace;
+  margin: 0;
+}
+
+.footer a {
+  color: #7ee8fa;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.footer a:hover {
+  opacity: 0.75;
+}

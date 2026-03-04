@@ -1,0 +1,77 @@
+.projects__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.5rem;
+}
+
+.project-card {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+}
+
+.project-card__top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 1.5rem;
+}
+
+.project-card__folder {
+  color: #7ee8fa;
+}
+
+.project-card__links {
+  display: flex;
+  gap: 1rem;
+}
+
+.project-card__links a {
+  color: rgba(230, 241, 255, 0.5);
+  display: flex;
+  align-items: center;
+  transition: color 0.2s;
+}
+
+.project-card__links a:hover {
+  color: #7ee8fa;
+}
+
+.project-card__title {
+  color: #e6f1ff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 0.75rem;
+  transition: color 0.2s;
+}
+
+.project-card:hover .project-card__title {
+  color: #7ee8fa;
+}
+
+.project-card__desc {
+  color: rgba(230, 241, 255, 0.57);
+  font-size: 0.9rem;
+  line-height: 1.65;
+  flex: 1;
+  margin: 0 0 1.5rem;
+}
+
+.project-card__tech {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.project-card__tech li {
+  color: rgba(230, 241, 255, 0.45);
+  font-size: 0.78rem;
+  font-family: "Courier New", monospace;
+}

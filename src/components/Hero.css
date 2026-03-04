@@ -1,0 +1,87 @@
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 0 10vw;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.hero__content {
+  max-width: 680px;
+}
+
+.hero__greeting {
+  color: #7ee8fa;
+  font-family: "Courier New", monospace;
+  font-size: 1rem;
+  margin: 0 0 1rem;
+  letter-spacing: 2px;
+}
+
+.hero__name {
+  color: #e6f1ff;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 800;
+  margin: 0 0 0.15em;
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.hero__tagline {
+  color: rgba(230, 241, 255, 0.45);
+  font-size: clamp(1.6rem, 4vw, 3.2rem);
+  font-weight: 700;
+  margin: 0 0 1.75rem;
+  line-height: 1.15;
+}
+
+.hero__description {
+  color: rgba(230, 241, 255, 0.6);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 520px;
+  margin: 0 0 2.5rem;
+}
+
+.hero__actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Scroll indicator */
+.hero__scroll-hint {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero__scroll-line {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(to bottom, #7ee8fa, transparent);
+  animation: scrollPulse 2s ease-in-out infinite;
+}
+
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.3; transform: scaleY(1); }
+  50% { opacity: 1; transform: scaleY(1.1); }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    padding: 0 6vw;
+    padding-top: 5rem;
+  }
+
+  .hero__scroll-hint {
+    display: none;
+  }
+}

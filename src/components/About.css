@@ -1,0 +1,102 @@
+.about__grid {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 4rem;
+  align-items: start;
+}
+
+.about__text p {
+  color: rgba(230, 241, 255, 0.65);
+  line-height: 1.8;
+  margin: 0 0 1rem;
+}
+
+.about__text strong {
+  color: #7ee8fa;
+}
+
+.about__tech-heading {
+  color: rgba(230, 241, 255, 0.85) !important;
+  margin-top: 1.5rem !important;
+}
+
+.about__tech-list {
+  list-style: none;
+  padding: 0;
+  margin: 0.75rem 0 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.45rem 1rem;
+}
+
+.about__tech-list li {
+  color: rgba(230, 241, 255, 0.6);
+  font-size: 0.88rem;
+  font-family: "Courier New", monospace;
+}
+
+.about__tech-list li::before {
+  content: "▹ ";
+  color: #7ee8fa;
+}
+
+/* Image column */
+.about__image-col {
+  display: flex;
+  justify-content: center;
+  padding-top: 0.5rem;
+}
+
+.about__image-frame {
+  position: relative;
+}
+
+.about__image-frame::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #7ee8fa;
+  border-radius: 10px;
+  z-index: -1;
+  transition: top 0.25s, left 0.25s;
+}
+
+.about__image-frame:hover::after {
+  top: 8px;
+  left: 8px;
+}
+
+.about__image-placeholder {
+  width: 240px;
+  height: 280px;
+  border-radius: 10px;
+  border: 2px solid rgba(126, 232, 250, 0.35);
+  background: rgba(126, 232, 250, 0.04);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(230, 241, 255, 0.25);
+  font-size: 0.85rem;
+  font-family: "Courier New", monospace;
+  overflow: hidden;
+}
+
+@media (max-width: 800px) {
+  .about__grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .about__image-col {
+    order: -1;
+  }
+
+  .about__image-placeholder {
+    width: 180px;
+    height: 210px;
+  }
+}
