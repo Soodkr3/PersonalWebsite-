@@ -11,6 +11,7 @@ const experiences = [
   {
     role: "Junior Analyst",
     org: "Trinity Student Managed Fund",
+    orgUrl: "https://www.linkedin.com/company/trinity-smf/posts/?feedView=all",
     type: "Part-time",
     period: "Oct 2025 – Present",
     location: "Dublin, Ireland",
@@ -18,6 +19,7 @@ const experiences = [
   {
     role: "Mentor",
     org: "S2S, Trinity College Dublin",
+    orgUrl: "https://www.tcd.ie/student2student/",
     type: "Part-time",
     period: "Sep 2024 – Present",
     location: "Dublin, Ireland",
@@ -26,6 +28,7 @@ const experiences = [
   {
     role: "Intern",
     org: "Magic EdTech",
+    orgUrl: "https://www.magicedtech.com/",
     type: "Internship",
     period: "Jul 2024 – Aug 2024",
     location: "Noida, India",
@@ -255,7 +258,11 @@ function App() {
                   <span className="card-role">{exp.role}</span>
                   <span className="card-period">{exp.period}</span>
                 </div>
-                <div className="card-org">{exp.org} · {exp.type}</div>
+                <div className="card-org">
+                  {exp.orgUrl ? (
+                    <a className="card-org-link cursor-target" href={exp.orgUrl} target="_blank" rel="noopener noreferrer">{exp.org}</a>
+                  ) : exp.org} · {exp.type}
+                </div>
                 <div className="card-location">{exp.location}</div>
                 {exp.desc && <div className="card-desc">{exp.desc}</div>}
                 {exp.tags && (
@@ -325,7 +332,7 @@ function App() {
           <FadeUp>
             <div className="glass-card cursor-target">
               <div className="card-top-row">
-                <span className="card-role">Trinity College Dublin</span>
+                <span className="card-role"><a className="card-org-link cursor-target" href="https://www.tcd.ie/scss/" target="_blank" rel="noopener noreferrer">Trinity College Dublin</a></span>
                 <span className="card-period">Sep 2023 – Present</span>
               </div>
               <div className="card-org">Bachelor of Arts — Computer Science</div>
@@ -335,7 +342,7 @@ function App() {
           <FadeUp delay={0.1}>
             <div className="glass-card cursor-target">
               <div className="card-top-row">
-                <span className="card-role">Gyan Bharati School, Delhi</span>
+                <span className="card-role"><a className="card-org-link cursor-target" href="https://www.gyanbharatischool.in/" target="_blank" rel="noopener noreferrer">Gyan Bharati School, Delhi</a></span>
                 <span className="card-period">Apr 2010 – Apr 2023</span>
               </div>
               <div className="card-org">High School Diploma — PCM Stream</div>
