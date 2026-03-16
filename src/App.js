@@ -1,287 +1,358 @@
-import React from "react";
-import Galaxy from "./Galaxy";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import Grainient from "./Grainient";
 import BlurText from "./BlurText";
-import ProfileCard from "./ProfileCard";
-import "./App.css";
-import MagicBento from "./MagicBento";
 import TargetCursor from "./TargetCursor";
+import "./App.css";
 
-// Set your details here:
-const MOBILE_NUMBER = "+1234567890"; // <-- Replace with your real number!
-const EMAIL_ADDRESS = "youremail@example.com"; // <-- Replace with your real email!
-
-const socials = [
-  {
-    label: "LinkedIn",
-    url: "https://www.linkedin.com/in/krish-sood/",
-    type: "link"
-  },
-  {
-    label: "GitHub",
-    url: "https://github.com/Soodkr3",
-    type: "link"
-  },
-  {
-    label: "Email",
-    url: `mailto:${EMAIL_ADDRESS}`,
-    type: "email"
-  },
-];
+const EMAIL_ADDRESS = "krishsood03@gmail.com";
 
 const experiences = [
   {
-    title: "AI Developer Intern — XYZ Startup",
-    period: "June 2024 – Aug 2024",
-    desc: "Built and deployed computer vision models for real-time object detection in Python (PyTorch, OpenCV).",
+    role: "Junior Analyst",
+    org: "Trinity Student Managed Fund",
+    type: "Part-time",
+    period: "Oct 2025 – Present",
+    location: "Dublin, Ireland",
   },
   {
-    title: "Full Stack Developer — College Society",
-    period: "Sept 2023 – Present",
-    desc: "Developed and maintained a React/Node.js web app for event management used by 200+ students.",
+    role: "Mentor",
+    org: "S2S, Trinity College Dublin",
+    type: "Part-time",
+    period: "Sep 2024 – Present",
+    location: "Dublin, Ireland",
+    desc: "Managed a group of 15 mentees, providing guidance and serving as a role model.",
   },
   {
-    title: "Research Assistant — TCD",
-    period: "May 2023 – Aug 2023",
-    desc: "Assisted in NLP research, working on transformer models and dataset preprocessing.",
+    role: "Intern",
+    org: "Magic EdTech",
+    type: "Internship",
+    period: "Jul 2024 – Aug 2024",
+    location: "Noida, India",
+    desc: "Implemented web scraping solutions for data extraction and built REST APIs & automation scripts to streamline processes.",
+    tags: ["Python", "Spring Boot", "Beautiful Soup"],
   },
 ];
 
-const handleAnimationComplete = () => {};
+const projects = [
+  {
+    title: "Natural Language Searching",
+    period: "Jan 2025 – Apr 2025",
+    desc: "Collaborative project with Propylon — built a legal document search platform using NLP and Named Entity Recognition to interpret queries and retrieve relevant legislative bills.",
+    tags: ["Python", "Django", "React", "OpenSearch"],
+    url: "https://github.com/Soodkr3",
+  },
+  {
+    title: "Volume Gesture Control",
+    period: "Jan 2025",
+    desc: "Real-time system that adjusts audio volume via hand gestures captured through a webcam, using computer vision and ML for hand landmark detection.",
+    tags: ["Python", "OpenCV", "MediaPipe"],
+    url: "https://github.com/Soodkr3/Volume-Gesture-Control",
+  },
+  {
+    title: "Sentiment Analysis",
+    period: "Dec 2024",
+    desc: "Full-stack ML app that classifies sentiment of text inputs using a Naive Bayes model trained on IMDb data.",
+    tags: ["Python", "React", "NLP"],
+    url: "https://github.com/Soodkr3/Sentiment-Analysis",
+  },
+  {
+    title: "Landsat — NASA Hackathon",
+    period: "Sep – Oct 2024",
+    desc: "2nd place at NASA Space Apps Hackathon. Satellite tracking platform for real-time NDVI monitoring with historical trend analysis and environmental metadata.",
+    tags: ["Python", "React", "Google Earth Engine"],
+    url: "https://github.com/ishaanJ91/landsat",
+  },
+];
 
-const handleContactClick = () => {
-  if (navigator.clipboard) {
-    navigator.clipboard.writeText(MOBILE_NUMBER).then(() => {
-      alert("Mobile number copied.");
-    });
-  } else {
-    // fallback
-    const tempInput = document.createElement("input");
-    tempInput.value = MOBILE_NUMBER;
-    document.body.appendChild(tempInput);
-    tempInput.select();
-    document.execCommand("copy");
-    document.body.removeChild(tempInput);
-    alert("Mobile number copied.");
-  }
+// Scroll-triggered fade-up wrapper
+const FadeUp = ({ children, delay = 0 }) => {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setInView(true); },
+      { threshold: 0.1, rootMargin: "-20px" }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+      transition={{ duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
 };
 
 function App() {
+  const [loaded, setLoaded] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setLoaded(true), 300);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const scrollToSection = useCallback((id) => {
+    setMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  }, []);
+
   return (
-    <div
-      style={{
-        width: "100vw",
-        minHeight: "350vh",
-        position: "relative",
-        overflow: "visible",
-      }}
-    >
-      {/* Custom animated cursor */}
+    <div className={`app-root ${loaded ? "app-root--loaded" : ""}`}>
       <TargetCursor
-        targetSelector=".cursor-target"
+        targetSelector="a, button, .cursor-target"
         spinDuration={2}
         hideDefaultCursor={true}
       />
 
-      {/* Galaxy background */}
-      <div
-        style={{
-          width: "100vw",
-          height: "100vh",
-          position: "fixed",
-          inset: 0,
-          zIndex: 0,
-          pointerEvents: "auto",
-        }}
-      >
-        <Galaxy
-          glowIntensity={0.1}
-          density={0.4}
-          saturation={0}
-          hueShift={0}
-          speed={0.7}
-          mouseRepulsion={true}
-          mouseInteraction={true}
-          transparent={false}
+      {/* Fixed Grainient background */}
+      <div className="grainient-bg">
+        <Grainient
+          color1="#ff9ec5"
+          color2="#5227FF"
+          color3="#B19EEF"
+          timeSpeed={0.15}
+          colorBalance={0}
+          warpStrength={0.25}
+          warpFrequency={2}
+          warpSpeed={0.5}
+          warpAmplitude={8}
+          blendAngle={0}
+          blendSoftness={0.5}
+          rotationAmount={30}
+          noiseScale={1.5}
+          grainAmount={0.08}
+          grainScale={2}
+          grainAnimated={false}
+          contrast={1.15}
+          gamma={1}
+          saturation={1}
+          centerX={0}
+          centerY={0}
+          zoom={0.9}
         />
       </div>
 
-      {/* Fixed top left name */}
-      <div className="top-left-name">
-        <BlurText
-          text="krish sood"
-          delay={80}
-          animateBy="words"
-          direction="top"
-          className="top-left-hero"
-        />
-      </div>
+      {/* Frosted glass navbar */}
+      <nav className="navbar">
+        <div className="navbar-inner">
+          <span className="navbar-brand" onClick={() => scrollToSection("hero")}>
+            Krish Sood
+          </span>
 
-      {/* Hero Section */}
-      <section
-        style={{
-          width: "100vw",
-          minHeight: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          pointerEvents: "none",
-        }}
-      >
-        <BlurText
-          text="Welcome to my Universe!"
-          delay={150}
-          animateBy="words"
-          direction="top"
-          onAnimationComplete={handleAnimationComplete}
-          className="main-hero-text"
-        />
-      </section>
+          {/* Desktop links */}
+          <div className="navbar-links navbar-links--desktop">
+            <button className="nav-link cursor-target" onClick={() => scrollToSection("about")}>About</button>
+            <button className="nav-link cursor-target" onClick={() => scrollToSection("experience")}>Experience</button>
+            <button className="nav-link cursor-target" onClick={() => scrollToSection("projects")}>Projects</button>
+            <a className="nav-link cursor-target" href={`mailto:${EMAIL_ADDRESS}`}>Contact</a>
+            <a className="nav-link nav-link--resume cursor-target" href="/Krish Sood Dublin.pdf" download="Krish_Sood_Resume.pdf">Resume</a>
+          </div>
 
-      {/* Profile + About Section Side-by-Side */}
-      <section className="profile-about-section">
-        <div className="profile-card-container">
-          <ProfileCard
-            avatarUrl="https://ik.imagekit.io/krishsood/photoNoBG_2.png?updatedAt=1754675208255"
-            name="Krish Sood"
-            title="CS Student • AI & Full Stack Dev"
-            handle="Soodkr3"
-            status="Online"
-            miniAvatarUrl="https://ik.imagekit.io/krishsood/photoNoBG_2.png?updatedAt=1754675208255"
-            contactText="Contact"
-            showUserInfo={true}
-            onContactClick={handleContactClick}
+          {/* Mobile hamburger */}
+          <button
+            className={`hamburger cursor-target ${menuOpen ? "hamburger--open" : ""}`}
+            onClick={() => setMenuOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            <span /><span /><span />
+          </button>
+        </div>
+
+        {/* Mobile dropdown */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              className="mobile-menu"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.2 }}
+            >
+              <button className="mobile-menu-link cursor-target" onClick={() => scrollToSection("about")}>About</button>
+              <button className="mobile-menu-link cursor-target" onClick={() => scrollToSection("experience")}>Experience</button>
+              <button className="mobile-menu-link cursor-target" onClick={() => scrollToSection("projects")}>Projects</button>
+              <a className="mobile-menu-link cursor-target" href={`mailto:${EMAIL_ADDRESS}`} onClick={() => setMenuOpen(false)}>Contact</a>
+              <a className="mobile-menu-link cursor-target" href="/Krish Sood Dublin.pdf" download="Krish_Sood_Resume.pdf" onClick={() => setMenuOpen(false)}>Resume</a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </nav>
+
+      {/* Hero */}
+      <section id="hero" className="hero-section">
+        <div className="hero-content">
+          <BlurText
+            text="Welcome."
+            delay={120}
+            animateBy="words"
+            direction="top"
+            className="hero-subtitle"
+          />
+          <BlurText
+            text="AI, Full Stack & everything in between."
+            delay={180}
+            animateBy="words"
+            direction="top"
+            className="hero-tagline"
           />
         </div>
-        <div className="about-description-container">
-          {/* Social buttons */}
-          <div className="social-links-container" style={{ pointerEvents: "auto" }}>
-            {socials.map((social) =>
-              social.type === "email" ? (
-                <a
-                  key={social.label}
-                  className="social-link cursor-target"
-                  href={social.url}
-                  style={{
-                    pointerEvents: "auto",
-                    cursor: "pointer",
-                    border: "none",
-                    outline: "none",
-                    background: "rgba(20,24,40,0.40)",
-                    color: "#b3e5fc",
-                    fontWeight: 600,
-                    fontSize: "1.12rem",
-                    borderRadius: "1.4rem",
-                    padding: "0.22rem 1.33rem",
-                    transition: "background 0.14s, box-shadow 0.14s, transform 0.13s",
-                    boxShadow: "0 2px 16px 0 rgba(0,0,0,0.09)",
-                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif"
-                  }}
-                  tabIndex={0}
-                  onMouseUp={e => e.currentTarget.blur()}
-                >
-                  <BlurText
-                    text={social.label}
-                    delay={80}
-                    animateBy="words"
-                    direction="top"
-                    className="social-blur-text"
-                    rootMargin="-30px"
-                    threshold={0.1}
-                  />
-                </a>
-              ) : (
-                <button
-                  key={social.label}
-                  className="social-link cursor-target"
-                  tabIndex={0}
-                  type="button"
-                  onClick={() => window.open(social.url, "_blank", "noopener,noreferrer")}
-                  style={{
-                    pointerEvents: "auto",
-                    cursor: "pointer",
-                    border: "none",
-                    outline: "none",
-                    background: "rgba(20,24,40,0.40)",
-                    color: "#b3e5fc",
-                    fontWeight: 600,
-                    fontSize: "1.12rem",
-                    borderRadius: "1.4rem",
-                    padding: "0.22rem 1.33rem",
-                    transition: "background 0.14s, box-shadow 0.14s, transform 0.13s",
-                    boxShadow: "0 2px 16px 0 rgba(0,0,0,0.09)",
-                    fontFamily: "'Plus Jakarta Sans', 'Inter', Arial, sans-serif"
-                  }}
-                  onMouseUp={e => e.currentTarget.blur()}
-                >
-                  <BlurText
-                    text={social.label}
-                    delay={80}
-                    animateBy="words"
-                    direction="top"
-                    className="social-blur-text"
-                    rootMargin="-30px"
-                    threshold={0.1}
-                  />
-                </button>
-              )
-            )}
-          </div>
-        </div>
       </section>
 
-      {/* Experience Heading */}
-      <section
-        style={{
-          width: "100vw",
-          minHeight: "30vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          pointerEvents: "none",
-          marginTop: "15vh",
-        }}
-      >
+      {/* About */}
+      <section id="about" className="content-section">
         <BlurText
-          text="Info"
+          text="About"
           delay={80}
           animateBy="words"
           direction="top"
-          className="experience-heading"
-          rootMargin="-20px"
+          className="section-heading"
+          rootMargin="-40px"
           threshold={0.15}
         />
+        <FadeUp>
+          <div className="glass-card about-card">
+            <p className="about-text">
+              I'm a Computer Science student at Trinity College Dublin with a strong interest in AI and full-stack development. I enjoy building end-to-end solutions — from training ML models to crafting clean frontends and robust APIs.
+            </p>
+            <div className="tech-tags">
+              {["Python", "Java", "JavaScript", "React", "Django", "Spring Boot", "SQL"].map((t) => (
+                <span className="tech-tag" key={t}>{t}</span>
+              ))}
+            </div>
+          </div>
+        </FadeUp>
       </section>
 
-      {/* Experience Bento Glass Grid */}
-      <section
-        style={{
-          width: "100vw",
-          minHeight: "45vh",
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-start",
-          pointerEvents: "auto",
-          marginTop: "2vh",
-        }}
-      >
-        <MagicBento
-          textAutoHide={true}
-          enableStars={true}
-          enableSpotlight={true}
-          enableBorderGlow={true}
-          enableTilt={false}
-          enableMagnetism={true}
-          clickEffect={true}
-          spotlightRadius={300}
-          particleCount={12}
-          glowColor="132, 0, 255"
+      <div className="section-divider" />
+
+      {/* Experience */}
+      <section id="experience" className="content-section">
+        <BlurText
+          text="Experience"
+          delay={80}
+          animateBy="words"
+          direction="top"
+          className="section-heading"
+          rootMargin="-40px"
+          threshold={0.15}
         />
+        <div className="cards-list">
+          {experiences.map((exp, i) => (
+            <FadeUp key={i} delay={i * 0.1}>
+              <div className="glass-card cursor-target">
+                <div className="card-top-row">
+                  <span className="card-role">{exp.role}</span>
+                  <span className="card-period">{exp.period}</span>
+                </div>
+                <div className="card-org">{exp.org} · {exp.type}</div>
+                <div className="card-location">{exp.location}</div>
+                {exp.desc && <div className="card-desc">{exp.desc}</div>}
+                {exp.tags && (
+                  <div className="tech-tags">
+                    {exp.tags.map((t) => <span className="tech-tag" key={t}>{t}</span>)}
+                  </div>
+                )}
+              </div>
+            </FadeUp>
+          ))}
+        </div>
       </section>
 
-      {/* Extra space for scrolling away */}
-      <div style={{ height: "70vh" }}></div>
+      <div className="section-divider" />
+
+      {/* Projects */}
+      <section id="projects" className="content-section">
+        <BlurText
+          text="Projects"
+          delay={80}
+          animateBy="words"
+          direction="top"
+          className="section-heading"
+          rootMargin="-40px"
+          threshold={0.15}
+        />
+        <div className="cards-list">
+          {projects.map((proj, i) => (
+            <FadeUp key={i} delay={i * 0.1}>
+              <a
+                className="glass-card glass-card--link cursor-target"
+                href={proj.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <div className="card-top-row">
+                  <span className="card-role">{proj.title}</span>
+                  <span className="card-period">{proj.period}</span>
+                </div>
+                <div className="card-desc">{proj.desc}</div>
+                {proj.tags && (
+                  <div className="tech-tags">
+                    {proj.tags.map((t) => <span className="tech-tag" key={t}>{t}</span>)}
+                  </div>
+                )}
+                <span className="card-link-hint">View on GitHub →</span>
+              </a>
+            </FadeUp>
+          ))}
+        </div>
+      </section>
+
+      <div className="section-divider" />
+
+      {/* Education */}
+      <section id="education" className="content-section">
+        <BlurText
+          text="Education"
+          delay={80}
+          animateBy="words"
+          direction="top"
+          className="section-heading"
+          rootMargin="-40px"
+          threshold={0.15}
+        />
+        <div className="cards-list">
+          <FadeUp>
+            <div className="glass-card cursor-target">
+              <div className="card-top-row">
+                <span className="card-role">Trinity College Dublin</span>
+                <span className="card-period">Sep 2023 – Present</span>
+              </div>
+              <div className="card-org">Bachelor of Arts — Computer Science</div>
+              <div className="card-desc">4.0 GPA · First Class Honours · Book Prize recipient</div>
+            </div>
+          </FadeUp>
+          <FadeUp delay={0.1}>
+            <div className="glass-card cursor-target">
+              <div className="card-top-row">
+                <span className="card-role">Gyan Bharati School, Delhi</span>
+                <span className="card-period">Apr 2010 – Apr 2023</span>
+              </div>
+              <div className="card-org">High School Diploma — PCM Stream</div>
+              <div className="card-desc">Boards: 94.8% overall</div>
+            </div>
+          </FadeUp>
+        </div>
+      </section>
+
+      <footer className="footer">
+        <div className="footer-links">
+          <a className="cursor-target" href="https://www.linkedin.com/in/krish-sood-3795282a5/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a className="cursor-target" href="https://github.com/Soodkr3" target="_blank" rel="noopener noreferrer">GitHub</a>
+          <a className="cursor-target" href={`mailto:${EMAIL_ADDRESS}`}>Email</a>
+        </div>
+        <p className="footer-copy">&copy; {new Date().getFullYear()} Krish Sood</p>
+      </footer>
     </div>
   );
 }
