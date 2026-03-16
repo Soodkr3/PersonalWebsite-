@@ -55,3 +55,10 @@
   border-right: none;
   border-top: none;
 }
+
+/* Hide on touch devices */
+@media (pointer: coarse) {
+  .target-cursor-wrapper {
+    display: none !important;
+  }
+}

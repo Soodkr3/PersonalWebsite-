@@ -2,6 +2,10 @@ import { useEffect, useRef, useCallback, useMemo } from "react";
 import { gsap } from "gsap";
 import "./TargetCursor.css";
 
+const isTouchDevice = () =>
+  typeof window !== "undefined" &&
+  (window.matchMedia("(pointer: coarse)").matches || "ontouchstart" in window);
+
 const TargetCursor = ({
   targetSelector = ".cursor-target",
   spinDuration = 2,
@@ -31,7 +35,7 @@ const TargetCursor = ({
   }, []);
 
   useEffect(() => {
-    if (!cursorRef.current) return;
+    if (!cursorRef.current || isTouchDevice()) return;
 
     const originalCursor = document.body.style.cursor;
     if (hideDefaultCursor) {
